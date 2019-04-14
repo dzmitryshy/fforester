@@ -1,0 +1,94 @@
+/*
+Theme Name: PVS Shopisle
+Theme URI: https://www.cmsaccount.com/templates/
+Author: CMSaccount
+Author URI: https://www.cmsaccount.com/
+Description: Photo Video Store theme is based on Free WooCommerce Shopisle theme.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pvs-shopisle
+Tags: e-commerce, photography, portfolio
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+
+.img-wrap {
+    position: relative;
+}
+.content-wrap {
+	padding: 5px;
+}
+.w-12 {
+    width: 100%;
+}
+img {
+    vertical-align: middle;
+}
+.icon {
+    display: inline-block;
+    height: 28px;
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    z-index: 2;
+}
+.share {
+    
+    padding: 20px 0px;
+}
+.file_more {
+    padding: 0px 0px 30px 0px;
+}
+.text-right {
+	text-align: right;
+}
+.v-align {
+    /*position: absolute;
+    top: 50%;
+    transform: translateY(-50%);*/
+	    position: relative;
+    top: 50px;
+}
+.container-full {
+    width: 100%;
+}
+.inner-module {
+	    box-shadow: 0 2px 6px rgba(112,112,112,0.2);
+}
+p.description {
+    color: #4b4b4b;
+}
+.subtitle {
+    color: #444;
+}
+.bold {
+    font-weight: 700;
+}
+.search_left {
+    text-transform: uppercase;
+}
+/**********************/
+.col1 li{display:block;width:100% !important; }
+.col1{margin:0;padding:0;list-style-type:none;}
+.col2 li{display:block;float:left;width:49% !important; }
+.col2{margin:0;padding:0;list-style-type:none;}
+.ui-widget-content {
+    border: 1px solid #aaaaaa;
+    background: #fff !important;
+    color: #222222;
+    width: 99% !important;
+}
+.ui-slider-horizontal .ui-slider-range {
+    top: 1px !important;
+   
+}
+/***********************/
+.socials {
+    /* text-align: right; */
+    float: left;
+    /* left: 100px; */
+    padding-right: 150px;
+}

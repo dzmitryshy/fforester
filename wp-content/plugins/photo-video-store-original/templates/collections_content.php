@@ -1,0 +1,120 @@
+<?php
+if ( ! defined( 'ABSPATH' ) )
+{
+	exit();
+}
+?>
+<div id="collections_boxes"  class="row">
+<?php
+
+if ( isset( $atts["view"] ) and ( $atts["view"] == 'grid' or $atts["view"] == 'fixed_width' ) ) {
+	$pvs_global_settings["category_view"] = $atts["view"];
+}
+
+if ( isset( $atts["query"] ) ) {
+	$_REQUEST["search"] = $atts["query"];
+}
+
+$limit = '';
+if ( isset( $atts["limit"] ) and  (int)$atts["limit"] > 0 ) {
+	$limit = ' limit 0,' . (int)$atts["limit"];
+}
+
+if ( @$_REQUEST["search"] == '' ) {
+		$sql = "select id, title, description, price, types from " . PVS_DB_PREFIX . "collections where active = 1 order by title" . $limit;
+} else
+{
+		$sql = "select id, title, description, price, types from " . PVS_DB_PREFIX . "collections where title like '%" . pvs_result( $_REQUEST["search"] ) .
+		"%' and active = 1 order by title" . $limit;
+}
+$rs->open( $sql );
+if ( ! $rs->eof ) {
+	$n = 0;
+	while ( ! $rs->eof ) {
+		$collection_result = pvs_show_collection_preview($rs->row["id"]);
+
+		$pvs_theme_content[ 'category_title' ] = $rs->row["title"] . ' (' . pvs_count_files_in_collection($rs->row["id"]) . ')';
+
+		$pvs_theme_content[ 'category_url' ] = pvs_collection_url( $rs->row["id"], $rs->row["title"] );
+
+		$pvs_theme_content[ 'category_photo' ] = $collection_result["photo"];
+		
+
+
+		$description = '';
+		
+		if ( $rs->row["description"] != '' ) {
+			$description .= $rs->row["description"] . '<br>';
+		}
+		
+		$description .= pvs_word_lang("price") . ': <span class="price">' . pvs_currency( 1 ) . pvs_price_format( $rs->row["price"], 2 ) . '  ' . pvs_currency( 2 ). '</span><br>';
+
+		$pvs_theme_content[ 'category_description' ] = $description;
+		$pvs_theme_content[ 'category_width' ] = $collection_result["width"];
+		$pvs_theme_content[ 'category_height' ] = $collection_result["height"];
+		
+		if ( $pvs_theme_content[ 'category_height' ] == 0) {
+			$pvs_theme_content[ 'category_height' ] = 120;
+		}
+		
+		if ( $pvs_theme_content[ 'category_photo' ] == '') {
+			$pvs_theme_content[ 'category_photo' ] = pvs_plugins_url() . '/assets/images/e.gif';
+		}
+		
+		if ($n%4 == 0 and $pvs_global_settings["category_view"] == 'grid') {
+			echo("</div><div class='row'>");
+		}
+		
+		if ( $pvs_global_settings["category_view"] == 'fixed_width') {
+			if ( file_exists ( get_stylesheet_directory(). '/item_category.php' ) ) {
+				include( get_stylesheet_directory(). '/item_category.php' );
+			} else {
+				if ( file_exists ( PVS_PATH . 'templates/item_category.php' ) ) {
+					include( PVS_PATH . 'templates/item_category.php' );
+				}
+			}
+		}
+		if ( $pvs_global_settings["category_view"] == 'grid') {
+			if ( file_exists ( get_stylesheet_directory(). '/item_category_grid.php' ) ) {
+				include( get_stylesheet_directory(). '/item_category_grid.php' );
+			} else {
+				if ( file_exists ( PVS_PATH . 'templates/item_category_grid.php' ) ) {
+					include( PVS_PATH . 'templates/item_category_grid.php' );
+				}
+			}
+		}
+
+		$n++;
+		$rs->movenext();
+	}
+}
+?>
+	</div>
+	<style>
+	.category_box
+	{
+		width:<?php echo ( $pvs_global_settings["category_preview"] + 20 )?>px;
+	}
+	</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.min.js"></script>
+<script>
+<?php
+if ($pvs_global_settings["category_view"] == 'fixed_width') {
+?>
+$('#collections_boxes').masonry({
+  		itemSelector: '.category_box'
+		});
+<?php
+}
+?>
+		
+			$('.home_preview').each(function(){
+     		$(this).animate({opacity:'1.0'},1);
+   			$(this).mouseover(function(){
+     		$(this).stop().animate({opacity:'0.3'},600);
+    		});
+    		$(this).mouseout(function(){
+    		$(this).stop().animate({opacity:'1.0'},300);
+    		});
+		});
+</script>

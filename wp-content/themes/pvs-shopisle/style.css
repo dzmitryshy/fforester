@@ -1,0 +1,35 @@
+/*
+Theme Name: PVS Shopisle
+Theme URI: https://www.cmsaccount.com/templates/
+Author: CMSaccount
+Author URI: https://www.cmsaccount.com/
+Description: Photo Video Store theme is based on Free WooCommerce Shopisle theme.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pvs-shopisle
+Tags: e-commerce, photography, portfolio
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+
+.module .img-wrap {
+    position: relative;
+}
+.w-12 {
+    width: 100%;
+}
+img {
+    vertical-align: middle;
+}
+.icon {
+    display: inline-block;
+    height: 28px;
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    z-index: 2;
+}
+
